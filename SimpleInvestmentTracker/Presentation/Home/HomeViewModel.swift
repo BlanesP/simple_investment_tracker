@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-final class HomeViewModel: ObservableObject {
+final class HomeViewModel: BaseViewModel {
 
     @Published var portfolioList = [Portfolio]()
 

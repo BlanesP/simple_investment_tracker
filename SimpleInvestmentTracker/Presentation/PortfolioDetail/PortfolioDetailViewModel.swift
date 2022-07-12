@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class PortfolioDetailViewModel: ObservableObject {
+final class PortfolioDetailViewModel: BaseViewModel {
 
     @Published var portfolio: Portfolio
     private var cancellables = Set<AnyCancellable>()

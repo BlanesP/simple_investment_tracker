@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class AddPortfolioViewModel: ObservableObject {
+final class AddPortfolioViewModel: BaseViewModel {
     
     @Published var portfolioList = [Portfolio]()
     let viewState = PassthroughSubject<ViewState, Never>()

@@ -44,6 +44,7 @@
 		1E740F04281678C700B85815 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E740F02281678C700B85815 /* Main.xcdatamodeld */; };
 		1E740F062816797500B85815 /* CoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E740F052816797500B85815 /* CoreDataSource.swift */; };
 		1EC09181287D4EB2001950BF /* UpdatePortfolioUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC09180287D4EB2001950BF /* UpdatePortfolioUseCase.swift */; };
+		1EC09184287D56B1001950BF /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC09183287D56B1001950BF /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +86,7 @@
 		1E740F03281678C700B85815 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		1E740F052816797500B85815 /* CoreDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSource.swift; sourceTree = "<group>"; };
 		1EC09180287D4EB2001950BF /* UpdatePortfolioUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePortfolioUseCase.swift; sourceTree = "<group>"; };
+		1EC09183287D56B1001950BF /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,9 +161,9 @@
 		1E201A48284D226700938ECB /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				1E201A49284D227700938ECB /* CustomTextfield.swift */,
-				1E07F1312876F80200205DDE /* InvestmentHeader.swift */,
-				1E6C3B102879F38C00417AC2 /* SimpleListRow.swift */,
+				1E201A45284D1FC000938ECB /* Utils */,
+				1EC09182287D5690001950BF /* Views */,
+				1EC09183287D56B1001950BF /* BaseViewModel.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -282,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				1E07F12C2876BCAD00205DDE /* PortfolioDetail */,
-				1E201A45284D1FC000938ECB /* Utils */,
 				1E201A48284D226700938ECB /* Shared */,
 				1E458BB528192AAF00F5956C /* AddPortfolio */,
 				1E458BB428192AA200F5956C /* Home */,
@@ -308,6 +309,16 @@
 				1E4AEA4728633724000F9B24 /* DataSources */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		1EC09182287D5690001950BF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1E201A49284D227700938ECB /* CustomTextfield.swift */,
+				1E07F1312876F80200205DDE /* InvestmentHeader.swift */,
+				1E6C3B102879F38C00417AC2 /* SimpleListRow.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,6 +396,7 @@
 				1E201A4A284D227700938ECB /* CustomTextfield.swift in Sources */,
 				1E4AEA4328633410000F9B24 /* GetPortfolioListUseCase.swift in Sources */,
 				1E4AEA45286334E3000F9B24 /* AddPortfolioUseCase.swift in Sources */,
+				1EC09184287D56B1001950BF /* BaseViewModel.swift in Sources */,
 				1E3F82FD27FEC64D00D2D187 /* Image+Custom.swift in Sources */,
 				1E0A933627FD767A004876ED /* HomeView.swift in Sources */,
 				1E458BB728192AC800F5956C /* AddPortfolioView.swift in Sources */,
