@@ -22,6 +22,7 @@ final class HomeViewModel: ObservableObject {
     }
 
     deinit {
+        print("HomeViewModel released")
         cancellables.removeAll()
     }
 }
@@ -82,19 +83,11 @@ extension HomeViewModel {
     }
 
     var totalContributed: Float {
-        portfolioList.map { $0.contributed }.reduce(0, +)
-    }
-
-    var gains: Float {
-        totalValue - totalContributed
-    }
-
-    var yield: Float {
-        guard totalContributed != 0 else { return 0 }
-        return gains / totalContributed
-    }
-
-    var isPositive: Bool {
-        gains >= 0
+        portfolioList.map {
+            $0.contributions
+                .map({ $0.amount })
+                .reduce(0, +)
+        }
+        .reduce(0, +)
     }
 }

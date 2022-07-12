@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21F79" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ContributionEntity" representedClassName="ContributionEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="portfolio" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PortfolioEntity" inverseName="contributions" inverseEntity="PortfolioEntity"/>
+    </entity>
     <entity name="PortfolioEntity" representedClassName="PortfolioEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="contributed" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String" defaultValueString="&quot;&quot;"/>
         <attribute name="value" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="contributions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ContributionEntity" inverseName="portfolio" inverseEntity="ContributionEntity"/>
     </entity>
     <elements>
-        <element name="PortfolioEntity" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="ContributionEntity" positionX="153.0859375" positionY="-9.984375" width="128" height="88"/>
+        <element name="PortfolioEntity" positionX="-63" positionY="-18" width="110.48828125" height="103"/>
     </elements>
 </model>

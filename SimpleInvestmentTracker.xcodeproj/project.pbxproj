@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E07F12E2876BCC900205DDE /* PortfolioDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E07F12D2876BCC900205DDE /* PortfolioDetailView.swift */; };
+		1E07F1302876BF9D00205DDE /* PortfolioDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E07F12F2876BF9D00205DDE /* PortfolioDetailViewModel.swift */; };
+		1E07F1322876F80200205DDE /* InvestmentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E07F1312876F80200205DDE /* InvestmentHeader.swift */; };
 		1E0A933427FD767A004876ED /* SimpleInvestmentTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0A933327FD767A004876ED /* SimpleInvestmentTrackerApp.swift */; };
 		1E0A933627FD767A004876ED /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0A933527FD767A004876ED /* HomeView.swift */; };
 		1E0A933827FD767B004876ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E0A933727FD767B004876ED /* Assets.xcassets */; };
@@ -14,9 +17,10 @@
 		1E1BB15A2875A6D00078DD2B /* CoreDataDeletePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1592875A6D00078DD2B /* CoreDataDeletePublisher.swift */; };
 		1E1BB15C2875AFF20078DD2B /* DeletePortfolioUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB15B2875AFF20078DD2B /* DeletePortfolioUseCase.swift */; };
 		1E1C0A77285E3E2A006D994F /* String+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1C0A76285E3E2A006D994F /* String+Formatting.swift */; };
-		1E201A47284D1FF600938ECB /* View+cornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E201A46284D1FF600938ECB /* View+cornerRadius.swift */; };
+		1E201A47284D1FF600938ECB /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E201A46284D1FF600938ECB /* View+Extensions.swift */; };
 		1E201A4A284D227700938ECB /* CustomTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E201A49284D227700938ECB /* CustomTextfield.swift */; };
 		1E2A19782861EA190071EB14 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A19772861EA190071EB14 /* Portfolio.swift */; };
+		1E3B1C86287B299C00DFBF14 /* Date+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3B1C85287B299C00DFBF14 /* Date+Formatting.swift */; };
 		1E3F82FD27FEC64D00D2D187 /* Image+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F82FC27FEC64D00D2D187 /* Image+Custom.swift */; };
 		1E3F82FF27FEC87E00D2D187 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F82FE27FEC87E00D2D187 /* HomeViewModel.swift */; };
 		1E3F830127FECA8B00D2D187 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3F830027FECA8B00D2D187 /* ViewFactory.swift */; };
@@ -35,11 +39,17 @@
 		1E67986A2861E02900E06B6E /* NSManagedObjectContext+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6798692861E02900E06B6E /* NSManagedObjectContext+Combine.swift */; };
 		1E67986C2861E46E00E06B6E /* SimplePerform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E67986B2861E46E00E06B6E /* SimplePerform.swift */; };
 		1E67986E2861E6BA00E06B6E /* PortfolioRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E67986D2861E6BA00E06B6E /* PortfolioRepository.swift */; };
+		1E6C3B112879F38C00417AC2 /* SimpleListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C3B102879F38C00417AC2 /* SimpleListRow.swift */; };
+		1E6C5D1E287C3F5E00ACE020 /* AddContributionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E6C5D1D287C3F5E00ACE020 /* AddContributionUseCase.swift */; };
 		1E740F04281678C700B85815 /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1E740F02281678C700B85815 /* Main.xcdatamodeld */; };
 		1E740F062816797500B85815 /* CoreDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E740F052816797500B85815 /* CoreDataSource.swift */; };
+		1EC09181287D4EB2001950BF /* UpdatePortfolioUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EC09180287D4EB2001950BF /* UpdatePortfolioUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E07F12D2876BCC900205DDE /* PortfolioDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDetailView.swift; sourceTree = "<group>"; };
+		1E07F12F2876BF9D00205DDE /* PortfolioDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioDetailViewModel.swift; sourceTree = "<group>"; };
+		1E07F1312876F80200205DDE /* InvestmentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestmentHeader.swift; sourceTree = "<group>"; };
 		1E0A933027FD767A004876ED /* SimpleInvestmentTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleInvestmentTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E0A933327FD767A004876ED /* SimpleInvestmentTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleInvestmentTrackerApp.swift; sourceTree = "<group>"; };
 		1E0A933527FD767A004876ED /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -48,9 +58,10 @@
 		1E1BB1592875A6D00078DD2B /* CoreDataDeletePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDeletePublisher.swift; sourceTree = "<group>"; };
 		1E1BB15B2875AFF20078DD2B /* DeletePortfolioUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletePortfolioUseCase.swift; sourceTree = "<group>"; };
 		1E1C0A76285E3E2A006D994F /* String+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Formatting.swift"; sourceTree = "<group>"; };
-		1E201A46284D1FF600938ECB /* View+cornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+cornerRadius.swift"; sourceTree = "<group>"; };
+		1E201A46284D1FF600938ECB /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1E201A49284D227700938ECB /* CustomTextfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextfield.swift; sourceTree = "<group>"; };
 		1E2A19772861EA190071EB14 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		1E3B1C85287B299C00DFBF14 /* Date+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatting.swift"; sourceTree = "<group>"; };
 		1E3F82FC27FEC64D00D2D187 /* Image+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Custom.swift"; sourceTree = "<group>"; };
 		1E3F82FE27FEC87E00D2D187 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		1E3F830027FECA8B00D2D187 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
@@ -69,8 +80,11 @@
 		1E6798692861E02900E06B6E /* NSManagedObjectContext+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Combine.swift"; sourceTree = "<group>"; };
 		1E67986B2861E46E00E06B6E /* SimplePerform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePerform.swift; sourceTree = "<group>"; };
 		1E67986D2861E6BA00E06B6E /* PortfolioRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioRepository.swift; sourceTree = "<group>"; };
+		1E6C3B102879F38C00417AC2 /* SimpleListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListRow.swift; sourceTree = "<group>"; };
+		1E6C5D1D287C3F5E00ACE020 /* AddContributionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContributionUseCase.swift; sourceTree = "<group>"; };
 		1E740F03281678C700B85815 /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		1E740F052816797500B85815 /* CoreDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSource.swift; sourceTree = "<group>"; };
+		1EC09180287D4EB2001950BF /* UpdatePortfolioUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePortfolioUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E07F12C2876BCAD00205DDE /* PortfolioDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1E07F12D2876BCC900205DDE /* PortfolioDetailView.swift */,
+				1E07F12F2876BF9D00205DDE /* PortfolioDetailViewModel.swift */,
+			);
+			path = PortfolioDetail;
+			sourceTree = "<group>";
+		};
 		1E0A932727FD767A004876ED = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +151,7 @@
 				1E4AEA4C286338EA000F9B24 /* Assets */,
 				1E4AEA4B286338D1000F9B24 /* Formatting */,
 				1E458BB2281920DD00F5956C /* LocalizedStringKey+String.swift */,
-				1E201A46284D1FF600938ECB /* View+cornerRadius.swift */,
+				1E201A46284D1FF600938ECB /* View+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -137,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				1E201A49284D227700938ECB /* CustomTextfield.swift */,
+				1E07F1312876F80200205DDE /* InvestmentHeader.swift */,
+				1E6C3B102879F38C00417AC2 /* SimpleListRow.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -165,6 +190,8 @@
 				1E4AEA4228633410000F9B24 /* GetPortfolioListUseCase.swift */,
 				1E4AEA44286334E3000F9B24 /* AddPortfolioUseCase.swift */,
 				1E1BB15B2875AFF20078DD2B /* DeletePortfolioUseCase.swift */,
+				1E6C5D1D287C3F5E00ACE020 /* AddContributionUseCase.swift */,
+				1EC09180287D4EB2001950BF /* UpdatePortfolioUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -198,6 +225,7 @@
 			children = (
 				1E3F830227FECB4600D2D187 /* Float+Formatting.swift */,
 				1E1C0A76285E3E2A006D994F /* String+Formatting.swift */,
+				1E3B1C85287B299C00DFBF14 /* Date+Formatting.swift */,
 			);
 			path = Formatting;
 			sourceTree = "<group>";
@@ -253,6 +281,7 @@
 		1E6FB15427FEC51500EFC225 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				1E07F12C2876BCAD00205DDE /* PortfolioDetail */,
 				1E201A45284D1FC000938ECB /* Utils */,
 				1E201A48284D226700938ECB /* Shared */,
 				1E458BB528192AAF00F5956C /* AddPortfolio */,
@@ -362,8 +391,12 @@
 				1E1C0A77285E3E2A006D994F /* String+Formatting.swift in Sources */,
 				1E2A19782861EA190071EB14 /* Portfolio.swift in Sources */,
 				1E3F830127FECA8B00D2D187 /* ViewFactory.swift in Sources */,
+				1E3B1C86287B299C00DFBF14 /* Date+Formatting.swift in Sources */,
+				1EC09181287D4EB2001950BF /* UpdatePortfolioUseCase.swift in Sources */,
 				1E3F82FF27FEC87E00D2D187 /* HomeViewModel.swift in Sources */,
+				1E6C3B112879F38C00417AC2 /* SimpleListRow.swift in Sources */,
 				1E4B8B61284CCBC6000BFB06 /* Color+Custom.swift in Sources */,
+				1E6C5D1E287C3F5E00ACE020 /* AddContributionUseCase.swift in Sources */,
 				1E458BB128191F5B00F5956C /* Size+Custom.swift in Sources */,
 				1E6798612861AA8400E06B6E /* AddPortfolioViewModel.swift in Sources */,
 				1E4AEA4A28633755000F9B24 /* DefaultPortfolioRepository.swift in Sources */,
@@ -371,9 +404,12 @@
 				1E1BB15C2875AFF20078DD2B /* DeletePortfolioUseCase.swift in Sources */,
 				1E67986E2861E6BA00E06B6E /* PortfolioRepository.swift in Sources */,
 				1E740F04281678C700B85815 /* Main.xcdatamodeld in Sources */,
-				1E201A47284D1FF600938ECB /* View+cornerRadius.swift in Sources */,
+				1E07F1302876BF9D00205DDE /* PortfolioDetailViewModel.swift in Sources */,
+				1E201A47284D1FF600938ECB /* View+Extensions.swift in Sources */,
 				1E0A933427FD767A004876ED /* SimpleInvestmentTrackerApp.swift in Sources */,
+				1E07F12E2876BCC900205DDE /* PortfolioDetailView.swift in Sources */,
 				1E458BB3281920DD00F5956C /* LocalizedStringKey+String.swift in Sources */,
+				1E07F1322876F80200205DDE /* InvestmentHeader.swift in Sources */,
 				1E1BB15A2875A6D00078DD2B /* CoreDataDeletePublisher.swift in Sources */,
 				1E3F830327FECB4600D2D187 /* Float+Formatting.swift in Sources */,
 				1E740F062816797500B85815 /* CoreDataSource.swift in Sources */,

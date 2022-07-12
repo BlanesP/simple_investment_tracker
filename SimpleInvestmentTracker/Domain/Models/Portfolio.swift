@@ -10,6 +10,13 @@ import Foundation
 struct Portfolio: Identifiable {
     let id: UUID
     let name: String
-    let value: Float
-    let contributed: Float
+    var value: Float
+    var contributions: [Contribution]
+}
+
+extension Portfolio {
+    struct Contribution: Hashable {
+        let date: Date
+        let amount: Float
+    }
 }

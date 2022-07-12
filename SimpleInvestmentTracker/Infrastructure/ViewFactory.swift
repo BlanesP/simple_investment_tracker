@@ -25,6 +25,16 @@ struct ViewFactory {
             )
         )
     }
+
+    static func portfolioDetailView(for portfolio: Portfolio) -> some View {
+        PortfolioDetailView(
+            viewModel: PortfolioDetailViewModel(
+                portfolio: portfolio,
+                addContributionUseCase: DomainFactory.addContributionUseCase,
+                updatePortfolioUseCase: DomainFactory.updatePortfolioUseCase
+            )
+        )
+    }
 }
 
 // MARK: - Domain
@@ -50,6 +60,14 @@ private extension ViewFactory {
 
         static var deletePortfolioUseCase: DeletePortfolioUseCase {
             DefaultDeletePortfolioUseCase(repository: portfolioRepository)
+        }
+
+        static var addContributionUseCase: AddContributionUseCase {
+            DefaultAddContributionUseCase(repository: portfolioRepository)
+        }
+
+        static var updatePortfolioUseCase: UpdatePortfolioUseCase {
+            DefaultUpdatePortfolioUseCase(repository: portfolioRepository)
         }
     }
 

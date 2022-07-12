@@ -48,7 +48,9 @@ extension CoreDataSavePublisher.Subscription: Subscription, Cancellable {
     func request(_ demand: Subscribers.Demand) {
         do {
             action()
-            try context.save()
+            if context.hasChanges {
+                try context.save()
+            }
             _ = subscriber?.receive(()) //sink -> receiveValue
             subscriber?.receive(completion: .finished) // sink -> receiveCompletion
         } catch {

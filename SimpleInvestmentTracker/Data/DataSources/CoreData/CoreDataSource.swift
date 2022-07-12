@@ -27,7 +27,11 @@ final class DefaultCoreDataSource {
             let portfolio = PortfolioEntity(context: controller.container.viewContext)
             portfolio.name = "Example Portfolio \(i)"
             portfolio.value = Float(i) * Float.random(in: 0...9.99) * 1000
-            portfolio.contributed = portfolio.value - Float.random(in: 50...100)
+
+            let contribution = ContributionEntity(context: controller.container.viewContext)
+            contribution.amount = portfolio.value - Float.random(in: 50...100)
+            contribution.date = Date()
+            portfolio.contributions = [contribution]
         }
 
         return controller

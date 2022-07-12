@@ -14,10 +14,6 @@ private extension LocalizedStringKey {
     static var addInvestment: Self { "Add portfolio" }
 }
 
-private extension Color {
-    static var shadowColor: Self { .black.opacity(0.2) }
-}
-
 //MARK: - Main View
 
 struct HomeView: View {
@@ -26,7 +22,7 @@ struct HomeView: View {
 
     var body: some View {
         NavigationView {
-            ContentView()
+            contentView
                 .environmentObject(viewModel)
                 .navigationBarItems(trailing: addButton)
                 .navigationBarTitle("", displayMode: .inline)
@@ -40,18 +36,15 @@ struct HomeView: View {
                 .bold()
         }
     }
-}
 
-//MARK: - Additional Views
-
-private struct ContentView: View {
-
-    @EnvironmentObject var viewModel: HomeViewModel
-
-    var body: some View {
+    var contentView: some View {
 
         VStack(alignment: .leading) {
-            headerView
+            InvestmentHeader(
+                name: LocalizedStringKey.portfolio.toString(),
+                value: viewModel.totalValue,
+                contributed: viewModel.totalContributed
+            )
 
             investmentsList
                 .background(Color.white)
@@ -64,37 +57,6 @@ private struct ContentView: View {
         }
     }
 
-    var headerView: some View {
-        VStack(alignment: .leading, spacing: .sizeSmall) {
-            Text(.portfolio)
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(.white)
-
-            Text(viewModel.totalValue.currencyFormatted)
-                .font(.largeTitle)
-                .foregroundColor(.white)
-            
-            growthView
-                .padding(.top, .sizeSmall)
-        }
-        .padding(.horizontal, .sizeLarge)
-        .padding(.bottom, .sizeLargeExtra)
-    }
-
-    var growthView: some View {
-        HStack(spacing: .zero) {
-            viewModel.isPositive ? Image.arrowUp : Image.arrowDown
-
-            Text(
-                viewModel.gains.currencyFormatted + " (\(viewModel.yield.percentageFormatted))"
-            )
-                .font(.title3)
-                .bold()
-        }
-        .foregroundColor(viewModel.isPositive ? .green : .red)
-    }
-
     var investmentsList: some View {
         VStack(alignment: .leading) {
             Text(.investments)
@@ -104,31 +66,26 @@ private struct ContentView: View {
 
             List {
                 ForEach(viewModel.portfolioList) { portfolio in
-                    HStack {
-                        VStack(alignment: .leading, spacing: .sizeSmall) {
-                            Text(portfolio.name)
-                                .bold()
-
-                            Text(portfolio.value.currencyFormatted)
-                        }
-                        .padding(.leading, .sizeMedium)
-
-                        Spacer()
-
-                        Image.arrowRight
-                            .padding(.trailing, .sizeSmall)
-                    }
-                    .padding(.sizeMedium)
-                    .background(Color.white)
-                    .cornerRadius(.sizeNormal)
-                    .shadow(color: .shadowColor, radius: .sizeSmall)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(
-                        top: .sizeSmall,
-                        leading: .sizeSmall,
-                        bottom: .sizeSmall,
-                        trailing: .sizeSmall
-                    ))
+                    SimpleListRow(
+                        title: portfolio.name,
+                        subtitle: portfolio.value.currencyFormatted,
+                        showArrow: true
+                    )
+                        .background(
+                            NavigationLink(
+                                destination: ViewFactory.portfolioDetailView(for: portfolio),
+                                label: { EmptyView() }
+                            )
+                            .opacity(0)
+                        )
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(
+                            top: .sizeSmall,
+                            leading: .sizeSmall,
+                            bottom: .sizeMedium,
+                            trailing: .sizeSmall
+                        ))
+                        .listRowBackground(Color.clear)
                 }
                 .onDelete { [weak viewModel] indexSet in
                     viewModel?.trigger(input: .deletePortfolios(indexSet))

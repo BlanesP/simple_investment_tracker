@@ -19,21 +19,20 @@ final class DefaultPortfolioRepository {
 
 extension DefaultPortfolioRepository: PortfolioRepository {
 
-    func fetchPortfolios() -> AnyPublisher<[Portfolio], Error> {
-        coreDataSource
-            .fetch(request: PortfolioEntity.fetchRequest())
-            .tryMap { result in
-                try result.map {
-                    guard let id = $0.id else {
-                        throw CustomError.missingData
-                    }
+    func addContribution(_ contribution: Portfolio.Contribution, toPortfolio portfolioId: UUID) -> AnyPublisher<Void, Error> {
+        let request = PortfolioEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", portfolioId as NSUUID)
 
-                    return Portfolio(
-                        id: id,
-                        name: $0.name ?? "",
-                        value: $0.value,
-                        contributed: $0.contributed
-                    )
+        return coreDataSource
+            .fetch(request: request)
+            .flatMap { results in
+                return self.coreDataSource.save {
+                    if let portfolioEntity = results.first {
+                        let contributionEntity: ContributionEntity = self.coreDataSource.createEntity()
+                        contributionEntity.amount = contribution.amount
+                        contributionEntity.date = contribution.date
+                        contributionEntity.portfolio = portfolioEntity
+                    }
                 }
             }
             .eraseToAnyPublisher()
@@ -44,11 +43,17 @@ extension DefaultPortfolioRepository: PortfolioRepository {
             .save { [weak self] in
                 guard let coreDataSource = self?.coreDataSource else { return }
 
-                let entity: PortfolioEntity = coreDataSource.createEntity()
-                entity.id = portfolio.id
-                entity.name = portfolio.name
-                entity.value = portfolio.value
-                entity.contributed = portfolio.contributed
+                let portfolioEntity: PortfolioEntity = coreDataSource.createEntity()
+                portfolioEntity.id = portfolio.id
+                portfolioEntity.name = portfolio.name
+                portfolioEntity.value = portfolio.value
+                portfolio.contributions.forEach {
+                    let contribution: ContributionEntity = coreDataSource.createEntity()
+                    contribution.amount = $0.amount
+                    contribution.date = $0.date
+                    contribution.portfolio = portfolioEntity
+                }
+
             }
     }
 
@@ -58,4 +63,48 @@ extension DefaultPortfolioRepository: PortfolioRepository {
         return coreDataSource
             .delete(request: request)
     }
+
+    func fetchPortfolios() -> AnyPublisher<[Portfolio], Error> {
+        coreDataSource
+            .fetch(request: PortfolioEntity.fetchRequest())
+            .tryMap { result in
+                try result.map {
+                    guard let id = $0.id,
+                          let contributions = $0.contributions?.allObjects as? [ContributionEntity]
+                    else {
+                        throw CustomError.missingData
+                    }
+
+                    return Portfolio(
+                        id: id,
+                        name: $0.name ?? "",
+                        value: $0.value,
+                        contributions: contributions
+                            .compactMap {
+                                guard let date = $0.date else { return nil }
+                                return Portfolio.Contribution(date: date, amount: $0.amount)
+                            }
+                    )
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    func update(portfolio: Portfolio) -> AnyPublisher<Void, Error> {
+        let request = PortfolioEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", portfolio.id as NSUUID)
+
+        return coreDataSource
+            .fetch(request: request)
+            .flatMap { results in
+                return self.coreDataSource.save {
+                    if let portfolioEntity = results.first {
+                        portfolioEntity.name = portfolio.name
+                        portfolioEntity.value = portfolio.value
+                    }
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
 }

@@ -73,14 +73,8 @@ struct AddPortfolioView: View {
                 formView
                     .padding(.horizontal, .sizeLarge)
                     .padding(.vertical, .superLargePadding)
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-
-                            Button("Done") {
-                                isInputActive = false
-                            }
-                        }
+                    .toolBarDone {
+                        isInputActive = false
                     }
             }
 

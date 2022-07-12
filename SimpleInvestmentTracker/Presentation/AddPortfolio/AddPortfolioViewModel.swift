@@ -21,6 +21,7 @@ final class AddPortfolioViewModel: ObservableObject {
     }
 
     deinit {
+        print("AddPortfolioViewModel released")
         cancellables.removeAll()
     }
 }
@@ -32,30 +33,21 @@ extension AddPortfolioViewModel {
     func trigger(input: ViewInput) {
         switch input {
         case .addPortfolioPressed(let name, let value, let contributed):
-            addPortfolioUseCase
-                .execute(
-                    Portfolio(
-                        id: UUID(),
-                        name: name,
-                        value: Float(currencyFormattedString: value),
-                        contributed: Float(currencyFormattedString: contributed)
-                    )
+            addPortfolio(
+                Portfolio(
+                    id: UUID(),
+                    name: name,
+                    value: Float(currencyFormattedString: value),
+                    contributions: [
+                        Portfolio.Contribution(
+                            date: Date(),
+                            amount: Float(currencyFormattedString: contributed)
+                        )
+                    ]
                 )
-                .sink { [weak self] completion in
-                    if case .failure(let error) = completion {
-                        print(error) //TODO: Manage error
-                    } else {
-                        self?.viewState.send(.onAddSuccess)
-                    }
-                } receiveValue: { _ in }
-                .store(in: &cancellables)
+            )
         }
     }
-}
-
-// MARK: - Components
-
-extension AddPortfolioViewModel {
 
     enum ViewInput {
         case addPortfolioPressed(name: String, value: String, contributed: String)
@@ -63,5 +55,24 @@ extension AddPortfolioViewModel {
 
     enum ViewState {
         case onAddSuccess
+    }
+}
+
+//MARK: - Private methods
+
+private extension AddPortfolioViewModel {
+    func addPortfolio(_ portfolio: Portfolio) {
+        addPortfolioUseCase
+            .execute(
+                portfolio
+            )
+            .sink { [weak self] completion in
+                if case .failure(let error) = completion {
+                    print(error) //TODO: Manage error
+                } else {
+                    self?.viewState.send(.onAddSuccess)
+                }
+            } receiveValue: { _ in }
+            .store(in: &cancellables)
     }
 }
