@@ -20,6 +20,9 @@ struct HomeView: View {
 
     @ObservedObject var viewModel: HomeViewModel
 
+    @State private var isPresented = false
+    @State private var showError = false
+
     var body: some View {
         NavigationView {
             contentView
@@ -27,8 +30,17 @@ struct HomeView: View {
                 .navigationBarItems(trailing: addButton)
                 .navigationBarTitle("", displayMode: .inline)
         }
+        .errorAlert(isPresented: $showError)
+        .onReceive(viewModel.output, perform: state)
     }
 
+    func state(_ value: HomeViewModel.ViewOutput) {
+        guard case .error = value else { return }
+        showError = true
+    }
+}
+
+extension HomeView {
     var addButton: some View {
         NavigationLink(destination: ViewFactory.addPortfolioView) {
             Text(.addInvestment)
@@ -53,7 +65,7 @@ struct HomeView: View {
         }
         .background(Color.primaryColor)
         .onAppear {
-            viewModel.trigger(input: .loadData)
+            viewModel.input(.loadData)
         }
     }
 
@@ -88,7 +100,7 @@ struct HomeView: View {
                         .listRowBackground(Color.clear)
                 }
                 .onDelete { [weak viewModel] indexSet in
-                    viewModel?.trigger(input: .deletePortfolios(indexSet))
+                    viewModel?.input(.deletePortfolios(indexSet))
                 }
             }
             .listStyle(.plain)

@@ -9,6 +9,9 @@ import SwiftUI
 
 private extension LocalizedStringKey {
     static var done: Self { "Done" }
+    static var errorTitle: Self { "Ups!" }
+    static var errorMsg: Self { "Something went wrong. Please try again." }
+    static var ok: Self { "Ok" }
 }
 
 //MARK: - Public methods
@@ -27,6 +30,19 @@ extension View {
 
                     Button(.done, action: action)
                 }
+            }
+    }
+
+    func errorAlert(isPresented: Binding<Bool>,
+                    errorTitle: LocalizedStringKey = .errorTitle,
+                    errorMsg: LocalizedStringKey = .errorMsg,
+                    btnText: LocalizedStringKey = .ok,
+                    btnAction: @escaping SimplePerform = {}) -> some View {
+        self
+            .alert(errorTitle, isPresented: isPresented) {
+                Button(btnText, action: btnAction)
+            } message: {
+                Text(errorMsg)
             }
     }
 }

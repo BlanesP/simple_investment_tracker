@@ -11,7 +11,7 @@ import Foundation
 final class AddPortfolioViewModel: BaseViewModel {
     
     @Published var portfolioList = [Portfolio]()
-    let viewState = PassthroughSubject<ViewState, Never>()
+    let output = PassthroughSubject<ViewOutput, Never>()
 
     private var cancellables = Set<AnyCancellable>()
     private let addPortfolioUseCase: AddPortfolioUseCase
@@ -30,7 +30,7 @@ final class AddPortfolioViewModel: BaseViewModel {
 
 extension AddPortfolioViewModel {
 
-    func trigger(input: ViewInput) {
+    func input(_ input: ViewInput) {
         switch input {
         case .addPortfolioPressed(let name, let value, let contributed):
             addPortfolio(
@@ -53,8 +53,9 @@ extension AddPortfolioViewModel {
         case addPortfolioPressed(name: String, value: String, contributed: String)
     }
 
-    enum ViewState {
+    enum ViewOutput {
         case onAddSuccess
+        case error
     }
 }
 
@@ -67,10 +68,10 @@ private extension AddPortfolioViewModel {
                 portfolio
             )
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print(error) //TODO: Manage error
+                if case .failure = completion {
+                    self?.output.send(.error)
                 } else {
-                    self?.viewState.send(.onAddSuccess)
+                    self?.output.send(.onAddSuccess)
                 }
             } receiveValue: { _ in }
             .store(in: &cancellables)

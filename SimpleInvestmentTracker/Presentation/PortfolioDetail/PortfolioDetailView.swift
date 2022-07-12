@@ -35,6 +35,7 @@ struct PortfolioDetailView: View {
 
     @State private var showAddContribution = false
     @State private var value = ""
+    @State private var showError = false
     @FocusState var isInputActive: Bool
 
     var body: some View {
@@ -72,8 +73,17 @@ struct PortfolioDetailView: View {
         .toolBarDone {
             isInputActive = false
         }
+        .errorAlert(isPresented: $showError)
+        .onReceive(viewModel.output, perform: state)
     }
 
+    func state(_ value: PortfolioDetailViewModel.ViewOutput) {
+        guard case .error = value else { return }
+        showError = true
+    }
+}
+
+extension PortfolioDetailView {
     var contentView: some View {
         VStack(alignment: .leading) {
             Text(.value)
@@ -86,7 +96,7 @@ struct PortfolioDetailView: View {
                 text: $value,
                 keyboardType: .decimalPad,
                 onEditingEnd: { [weak viewModel] in
-                    viewModel?.trigger(input: .valueChanged(to: value))
+                    viewModel?.input(.valueChanged(to: value))
                 }
             )
             .focused($isInputActive)
@@ -173,8 +183,8 @@ private struct AddContributionView: View {
                     .padding(.horizontal, .sizeNormal)
 
                 Button { [weak viewModel] in
-                    viewModel?.trigger(
-                        input: .addContribution(date: date, amount: amount)
+                    viewModel?.input(
+                        .addContribution(date: date, amount: amount)
                     )
                     show.toggle()
                 } label: {

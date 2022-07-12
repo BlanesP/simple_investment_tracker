@@ -5,10 +5,14 @@
 //  Created by Pau Blanes on 12/7/22.
 //
 
+import Combine
 import Foundation
 
 protocol BaseViewModel: ObservableObject {
     associatedtype ViewInput
+    associatedtype ViewOutput
 
-    func trigger(input: ViewInput)
+    var output: PassthroughSubject<ViewOutput, Never> { get }
+
+    func input(_ input: ViewInput)
 }

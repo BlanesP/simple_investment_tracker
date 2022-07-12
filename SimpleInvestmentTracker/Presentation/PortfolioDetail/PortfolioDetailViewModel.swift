@@ -12,6 +12,7 @@ final class PortfolioDetailViewModel: BaseViewModel {
 
     @Published var portfolio: Portfolio
     private var cancellables = Set<AnyCancellable>()
+    let output = PassthroughSubject<ViewOutput, Never>()
 
     private let addContributionUseCase: AddContributionUseCase?
     private let updatePortfolioUseCase: UpdatePortfolioUseCase?
@@ -34,7 +35,7 @@ final class PortfolioDetailViewModel: BaseViewModel {
 
 extension PortfolioDetailViewModel {
 
-    func trigger(input: ViewInput) {
+    func input(_ input: ViewInput) {
         switch input {
         case .addContribution(let date, let amount):
             addContribution(
@@ -60,6 +61,10 @@ extension PortfolioDetailViewModel {
         case addContribution(date: Date, amount: String)
         case valueChanged(to: String)
     }
+
+    enum ViewOutput {
+        case error
+    }
 }
 
 //MARK: - Private methods
@@ -72,8 +77,8 @@ private extension PortfolioDetailViewModel {
                 portfolioId: portfolio.id
             )
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print(error)
+                if case .failure = completion {
+                    self?.output.send(.error)
                 } else {
                     self?.portfolio.contributions.append(contribution)
                 }
@@ -85,8 +90,8 @@ private extension PortfolioDetailViewModel {
         updatePortfolioUseCase?
             .execute(newPortfolio)
             .sink { [weak self] completion in
-                if case .failure(let error) = completion {
-                    print(error)
+                if case .failure = completion {
+                    self?.output.send(.error)
                 } else {
                     self?.portfolio = newPortfolio
                 }

@@ -11,6 +11,7 @@ import Combine
 final class HomeViewModel: BaseViewModel {
 
     @Published var portfolioList = [Portfolio]()
+    let output = PassthroughSubject<ViewOutput, Never>()
 
     private var cancellables = Set<AnyCancellable>()
     private let getPortfolioListUseCase: GetPortfolioListUseCase
@@ -31,7 +32,7 @@ final class HomeViewModel: BaseViewModel {
 
 extension HomeViewModel {
     
-    func trigger(input: ViewInput) {
+    func input(_ input: ViewInput) {
         switch input {
         case .loadData:
             fetchData()
@@ -44,6 +45,10 @@ extension HomeViewModel {
         case loadData
         case deletePortfolios(IndexSet)
     }
+
+    enum ViewOutput {
+        case error
+    }
 }
 
 //MARK: - Private methods
@@ -53,9 +58,9 @@ private extension HomeViewModel {
     private func fetchData() {
         getPortfolioListUseCase
             .execute()
-            .sink { completion in
-                guard case .failure(let error) = completion else { return }
-                print(error) //TODO: Manage error
+            .sink { [weak self] completion in
+                guard case .failure = completion else { return }
+                self?.output.send(.error)
             } receiveValue: { [weak self] result in
                 self?.portfolioList = result
             }
@@ -67,9 +72,9 @@ private extension HomeViewModel {
             .execute(
                 indexSet.map { portfolioList[$0].id }
             )
-            .sink { completion in
-                guard case .failure(let error) = completion else { return }
-                print(error) //TODO: Manage error
+            .sink { [weak self] completion in
+                guard case .failure = completion else { return }
+                self?.output.send(.error)
             } receiveValue: { [weak self] result in
                 self?.portfolioList.remove(atOffsets: indexSet)
             }

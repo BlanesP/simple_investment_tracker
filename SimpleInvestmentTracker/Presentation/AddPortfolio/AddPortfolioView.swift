@@ -32,6 +32,7 @@ struct AddPortfolioView: View {
     @State private var name: String = ""
     @State private var value: String = ""
     @State private var contributed: String = ""
+    @State private var showError = false
 
     @FocusState var isInputActive: Bool
 
@@ -64,9 +65,21 @@ struct AddPortfolioView: View {
                     .foregroundColor(.white)
             })
         )
-        .onReceive(viewModel.viewState, perform: state)
+        .errorAlert(isPresented: $showError)
+        .onReceive(viewModel.output, perform: state)
     }
 
+    func state(_ value: AddPortfolioViewModel.ViewOutput) {
+        switch value {
+        case .onAddSuccess:
+            presentationMode.wrappedValue.dismiss()
+        case .error:
+            showError = true
+        }
+    }
+}
+
+extension AddPortfolioView {
     var contentView: some View {
         VStack {
             ScrollView {
@@ -115,8 +128,8 @@ struct AddPortfolioView: View {
 
     var addPortfolioView: some View {
         Button { [weak viewModel] in
-            viewModel?.trigger(
-                input: .addPortfolioPressed(name: name, value: value, contributed: contributed)
+            viewModel?.input(
+                .addPortfolioPressed(name: name, value: value, contributed: contributed)
             )
         } label: {
             Text(LocalizedStringKey.addPortfolio.toString().uppercased())
@@ -140,17 +153,6 @@ struct AddPortfolioView: View {
                 endPoint: .bottom
             )
         )
-    }
-}
-
-// MARK: - Performs
-
-private extension AddPortfolioView {
-    func state(_ value: AddPortfolioViewModel.ViewState) {
-        switch value {
-        case .onAddSuccess:
-            presentationMode.wrappedValue.dismiss()
-        }
     }
 }
 
