@@ -23,19 +23,16 @@ extension DefaultPortfolioRepository: PortfolioRepository {
         let request = PortfolioEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", portfolioId as NSUUID)
 
-        return coreDataSource
-            .fetch(request: request)
-            .flatMap { results in
-                return self.coreDataSource.save {
-                    if let portfolioEntity = results.first {
-                        let contributionEntity: ContributionEntity = self.coreDataSource.createEntity()
-                        contributionEntity.amount = contribution.amount
-                        contributionEntity.date = contribution.date
-                        contributionEntity.portfolio = portfolioEntity
-                    }
-                }
+        return coreDataSource.update(request: request) { results in
+            if let portfolioEntity = results.first {
+                let contributionEntity: ContributionEntity = self.coreDataSource.createEntity()
+                contributionEntity.amount = contribution.amount
+                contributionEntity.date = contribution.date
+                contributionEntity.portfolio = portfolioEntity
+            } else {
+                throw BasicError(message: "Fetch failed")
             }
-            .eraseToAnyPublisher()
+        }
     }
 
     func addPortfolio(_ portfolio: Portfolio) -> AnyPublisher<Void, Error> {
@@ -60,6 +57,7 @@ extension DefaultPortfolioRepository: PortfolioRepository {
     func deletePortfolio(ids: [UUID]) -> AnyPublisher<Void, Error> {
         let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "PortfolioEntity")
         request.predicate = NSPredicate(format: "%@ CONTAINS[cd] id", ids as [NSUUID])
+
         return coreDataSource
             .delete(request: request)
     }
@@ -70,14 +68,15 @@ extension DefaultPortfolioRepository: PortfolioRepository {
             .tryMap { result in
                 try result.map {
                     guard let id = $0.id,
+                          let name = $0.name,
                           let contributions = $0.contributions?.allObjects as? [ContributionEntity]
                     else {
-                        throw CustomError.missingData
+                        throw BasicError(message: "Error decoding PortfolioEntity")
                     }
 
                     return Portfolio(
                         id: id,
-                        name: $0.name ?? "",
+                        name: name,
                         value: $0.value,
                         contributions: contributions
                             .compactMap {
@@ -95,16 +94,14 @@ extension DefaultPortfolioRepository: PortfolioRepository {
         request.predicate = NSPredicate(format: "id == %@", portfolio.id as NSUUID)
 
         return coreDataSource
-            .fetch(request: request)
-            .flatMap { results in
-                return self.coreDataSource.save {
-                    if let portfolioEntity = results.first {
-                        portfolioEntity.name = portfolio.name
-                        portfolioEntity.value = portfolio.value
-                    }
+            .update(request: request) { results in
+                if let portfolioEntity = results.first {
+                    portfolioEntity.name = portfolio.name
+                    portfolioEntity.value = portfolio.value
+                } else {
+                    throw BasicError(message: "Fetch failed")
                 }
             }
-            .eraseToAnyPublisher()
     }
     
 }

@@ -5,8 +5,8 @@
 //  Created by Pau Blanes on 7/4/22.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class HomeViewModel: BaseViewModel {
 
@@ -23,7 +23,7 @@ final class HomeViewModel: BaseViewModel {
     }
 
     deinit {
-        print("HomeViewModel released")
+        print("\(type(of: self)) released")
         cancellables.removeAll()
     }
 }
@@ -36,8 +36,12 @@ extension HomeViewModel {
         switch input {
         case .loadData:
             fetchData()
-        case .deletePortfolios(let indexSet):
+
+        case .deletePortfolios(let indexSet) where !indexSet.isEmpty:
             deletePortfolios(indexSet: indexSet)
+            
+        default:
+            break
         }
     }
 
@@ -81,6 +85,8 @@ private extension HomeViewModel {
             .store(in: &cancellables)
     }
 }
+
+//MARK: - Utils
 
 extension HomeViewModel {
     var totalValue: Float {

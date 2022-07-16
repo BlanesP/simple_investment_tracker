@@ -68,7 +68,7 @@ struct PortfolioDetailView: View {
                 .opacity(showAddContribution ? 1 : 0)
         }
         .onAppear { [weak viewModel] in
-            value = viewModel?.portfolio.value.currencyFormatted ?? ""
+            value = viewModel?.portfolio.value.currencyFormatted() ?? ""
         }
         .toolBarDone {
             isInputActive = false
@@ -124,7 +124,7 @@ extension PortfolioDetailView {
             List(viewModel.sortedContributions, id: \.self) { contribution in
                 SimpleListRow(
                     title: contribution.date.toString(),
-                    subtitle: contribution.amount.currencyFormatted,
+                    subtitle: contribution.amount.currencyFormatted(),
                     showArrow: false
                 )
                 .listRowSeparator(.hidden)
@@ -172,7 +172,7 @@ private struct AddContributionView: View {
                     text: $amount,
                     keyboardType: .decimalPad,
                     onEditingEnd: {
-                        amount = amount.currencyFormatted
+                        amount = amount.currencyFormatted()
                     }
                 )
                     .padding(.top, .sizeLarge)

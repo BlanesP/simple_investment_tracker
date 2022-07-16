@@ -8,33 +8,37 @@
 import Foundation
 
 extension Float {
-    var currencyFormatted: String {
+    func currencyFormatted(absolute: Bool = true, locale: Locale = Locale.current) -> String {
         let formatter = NumberFormatter()
 
         formatter.usesGroupingSeparator = true
         formatter.numberStyle = .currency
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
-        formatter.locale = Locale.current
+        formatter.locale = locale
 
-        return formatter.string(from: NSNumber(value: abs(self))) ?? "\(self)"
+        return formatter.string(
+            from: NSNumber(value: absolute ? abs(self) : self)
+        ) ?? "\(self)"
     }
 
-    var percentageFormatted: String {
+    func percentageFormatted(locale: Locale = Locale.current) -> String {
         let formatter = NumberFormatter()
 
         formatter.numberStyle = .percent
         formatter.maximumFractionDigits = 2
         formatter.minimumFractionDigits = 2
+        formatter.locale = locale
 
         return formatter.string(from: NSNumber(value: self)) ?? "\(self)%"
     }
 }
 
 extension Float {
-    init(currencyFormattedString: String) {
+    init(currencyFormattedString: String, locale: Locale = Locale.current) {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
+        formatter.locale = locale
 
         guard let number = formatter.number(from: currencyFormattedString) else {
             self = 0

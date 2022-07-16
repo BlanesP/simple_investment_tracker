@@ -13,32 +13,15 @@ protocol CoreDataSource {
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> AnyPublisher<[T], Error>
     func save(action: @escaping SimplePerform) -> AnyPublisher<Void, Error>
     func delete(request: NSFetchRequest<NSFetchRequestResult>) -> AnyPublisher<Void, Error>
+    func update<T: NSManagedObject>(request: NSFetchRequest<T>, action: @escaping ([T]) throws -> Void) -> AnyPublisher<Void, Error>
 }
 
 final class DefaultCoreDataSource {
 
     let container: NSPersistentContainer
 
-    //For SwiftUI previews
-    static var preview: DefaultCoreDataSource = {
-        let controller = DefaultCoreDataSource(inMemory: true) //In memory disappears after terminating app
-
-        for i in 0..<3 {
-            let portfolio = PortfolioEntity(context: controller.container.viewContext)
-            portfolio.name = "Example Portfolio \(i)"
-            portfolio.value = Float(i) * Float.random(in: 0...9.99) * 1000
-
-            let contribution = ContributionEntity(context: controller.container.viewContext)
-            contribution.amount = portfolio.value - Float.random(in: 50...100)
-            contribution.date = Date()
-            portfolio.contributions = [contribution]
-        }
-
-        return controller
-    }()
-
-    init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Main")
+    init(inMemory: Bool = false, name: String = "Main") {
+        container = NSPersistentContainer(name: name)
 
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
@@ -75,6 +58,17 @@ extension DefaultCoreDataSource: CoreDataSource {
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         return container.viewContext
             .delete(request: batchDeleteRequest)
+            .eraseToAnyPublisher()
+    }
+
+    func update<T: NSManagedObject>(request: NSFetchRequest<T>, action: @escaping ([T]) throws -> Void) -> AnyPublisher<Void, Error> {
+        container.viewContext
+            .fetch(request: request)
+            .flatMap { result in
+                self.container.viewContext.save {
+                    try action(result)
+                }
+            }
             .eraseToAnyPublisher()
     }
 }

@@ -43,6 +43,7 @@ private extension ViewFactory {
     struct DomainFactory {
 
         //MARK: Repositories
+
         private static var portfolioRepository: PortfolioRepository {
             DefaultPortfolioRepository(
                 coreDataSource: DefaultCoreDataSource()
@@ -50,6 +51,7 @@ private extension ViewFactory {
         }
 
         //MARK: UseCases
+        
         static var getPortfolioListUseCase: GetPortfolioListUseCase {
             DefaultGetPortfolioListUseCase(repository: portfolioRepository)
         }

@@ -80,7 +80,7 @@ extension HomeView {
                 ForEach(viewModel.portfolioList) { portfolio in
                     SimpleListRow(
                         title: portfolio.name,
-                        subtitle: portfolio.value.currencyFormatted,
+                        subtitle: portfolio.value.currencyFormatted(),
                         showArrow: true
                     )
                         .background(

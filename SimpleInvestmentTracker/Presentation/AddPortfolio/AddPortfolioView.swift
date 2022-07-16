@@ -106,7 +106,7 @@ extension AddPortfolioView {
                 text: $value,
                 keyboardType: .decimalPad,
                 onEditingEnd: {
-                    value = value.currencyFormatted
+                    value = value.currencyFormatted()
                 }
             )
                 .focused($isInputActive)
@@ -116,7 +116,7 @@ extension AddPortfolioView {
                 text: $contributed,
                 keyboardType: .decimalPad,
                 onEditingEnd: {
-                    contributed = contributed.currencyFormatted
+                    contributed = contributed.currencyFormatted()
                 }
             )
                 .focused($isInputActive)
@@ -129,7 +129,7 @@ extension AddPortfolioView {
     var addPortfolioView: some View {
         Button { [weak viewModel] in
             viewModel?.input(
-                .addPortfolioPressed(name: name, value: value, contributed: contributed)
+                .addPortfolio(name: name, value: value, contributed: contributed)
             )
         } label: {
             Text(LocalizedStringKey.addPortfolio.toString().uppercased())

@@ -48,6 +48,8 @@ struct CustomTextfield: View {
     }
 }
 
+//MARK: - Previews
+
 struct CustomTextfield_Previews: PreviewProvider {
     static var previews: some View {
         CustomTextfield(placeholder: "Test...", text: .constant("A value"))

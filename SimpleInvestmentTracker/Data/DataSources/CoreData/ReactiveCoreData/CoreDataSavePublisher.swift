@@ -12,10 +12,10 @@ struct CoreDataSavePublisher: Publisher {
     typealias Output = Void
     typealias Failure = Error
 
-    private let action: SimplePerform
+    private let action: ThrowingSimplePerform
     private let context: NSManagedObjectContext
 
-    init(action: @escaping SimplePerform, context: NSManagedObjectContext) {
+    init(action: @escaping ThrowingSimplePerform, context: NSManagedObjectContext) {
         self.action = action
         self.context = context
     }
@@ -32,10 +32,10 @@ extension CoreDataSavePublisher {
 
     class Subscription<S: Subscriber> where Failure == S.Failure, Output == S.Input {
         private var subscriber: S?
-        private var action: SimplePerform
+        private var action: ThrowingSimplePerform
         private var context: NSManagedObjectContext
 
-        init(subscriber: S, context: NSManagedObjectContext, action: @escaping SimplePerform) {
+        init(subscriber: S, context: NSManagedObjectContext, action: @escaping ThrowingSimplePerform) {
             self.subscriber = subscriber
             self.context = context
             self.action = action
@@ -47,7 +47,7 @@ extension CoreDataSavePublisher.Subscription: Subscription, Cancellable {
 
     func request(_ demand: Subscribers.Demand) {
         do {
-            action()
+            try action()
             if context.hasChanges {
                 try context.save()
             }

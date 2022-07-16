@@ -13,7 +13,7 @@ extension NSManagedObjectContext {
         CoreDataFetchPublisher(request: request, context: self)
     }
 
-    func save(action: @escaping SimplePerform) -> CoreDataSavePublisher {
+    func save(action: @escaping ThrowingSimplePerform) -> CoreDataSavePublisher {
         CoreDataSavePublisher(action: action, context: self)
     }
 

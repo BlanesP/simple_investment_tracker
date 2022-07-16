@@ -8,11 +8,11 @@
 import Foundation
 
 enum DateFormat: String {
-    case ddMMyyy = "dd/MM/yyyy"
+    case ddMMyyyy = "dd/MM/yyyy"
 }
 
 extension Date {
-    func toString(format: DateFormat = .ddMMyyy) -> String {
+    func toString(format: DateFormat = .ddMMyyyy) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format.rawValue
         return formatter.string(from: self)

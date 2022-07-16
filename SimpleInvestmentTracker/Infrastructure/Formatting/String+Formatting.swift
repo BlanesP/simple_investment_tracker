@@ -8,9 +8,8 @@
 import Foundation
 
 extension String {
-
-    var currencyFormatted: Self {
+    func currencyFormatted(absolute: Bool = true, locale: Locale = Locale.current) -> Self {
         guard let floatValue = Float(self) else { return self }
-        return floatValue.currencyFormatted
+        return floatValue.currencyFormatted(absolute: absolute, locale: locale)
     }
 }

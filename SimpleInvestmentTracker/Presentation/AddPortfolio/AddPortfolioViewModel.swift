@@ -21,7 +21,7 @@ final class AddPortfolioViewModel: BaseViewModel {
     }
 
     deinit {
-        print("AddPortfolioViewModel released")
+        print("\(type(of: self)) released")
         cancellables.removeAll()
     }
 }
@@ -32,7 +32,11 @@ extension AddPortfolioViewModel {
 
     func input(_ input: ViewInput) {
         switch input {
-        case .addPortfolioPressed(let name, let value, let contributed):
+        case .addPortfolio(let name, let value, let contributed)
+            where name.isEmpty || value.isEmpty || contributed.isEmpty:
+            output.send(.error)
+
+        case .addPortfolio(let name, let value, let contributed):
             addPortfolio(
                 Portfolio(
                     id: UUID(),
@@ -50,7 +54,7 @@ extension AddPortfolioViewModel {
     }
 
     enum ViewInput {
-        case addPortfolioPressed(name: String, value: String, contributed: String)
+        case addPortfolio(name: String, value: String, contributed: String)
     }
 
     enum ViewOutput {

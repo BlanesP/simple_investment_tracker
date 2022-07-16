@@ -11,9 +11,9 @@ import Foundation
 final class PortfolioDetailViewModel: BaseViewModel {
 
     @Published var portfolio: Portfolio
-    private var cancellables = Set<AnyCancellable>()
     let output = PassthroughSubject<ViewOutput, Never>()
 
+    private var cancellables = Set<AnyCancellable>()
     private let addContributionUseCase: AddContributionUseCase?
     private let updatePortfolioUseCase: UpdatePortfolioUseCase?
 
@@ -26,7 +26,7 @@ final class PortfolioDetailViewModel: BaseViewModel {
     }
 
     deinit {
-        print("PortfolioDetailViewModel released")
+        print("\(type(of: self)) released")
         cancellables.removeAll()
     }
 }
@@ -37,10 +37,16 @@ extension PortfolioDetailViewModel {
 
     func input(_ input: ViewInput) {
         switch input {
+        case .addContribution(_, let amount) where amount.isEmpty:
+            output.send(.error)
+
         case .addContribution(let date, let amount):
             addContribution(
                 Portfolio.Contribution(date: date, amount: Float(currencyFormattedString: amount))
             )
+
+        case .valueChanged(let newValue) where newValue.isEmpty:
+            output.send(.error)
 
         case .valueChanged(let newValue) where Float(currencyFormattedString: newValue) != portfolio.value:
             updatePortfolio(

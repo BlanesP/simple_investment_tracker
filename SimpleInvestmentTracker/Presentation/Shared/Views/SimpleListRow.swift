@@ -11,6 +11,8 @@ private extension Color {
     static var shadowColor: Self { .black.opacity(0.2) }
 }
 
+//MARK: - Main View
+
 struct SimpleListRow: View {
 
     let title: String
