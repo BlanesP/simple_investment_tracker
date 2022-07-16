@@ -9,5 +9,4 @@
 - *Pending: Publish to app store*
 
 ---
-
-![](/screenshots/home.png) ![](/screenshots/add_portfolio.png) ![](/screenshots/detail.png)
+<img src="/screenshots/home.png" width="30%"> <img src="/screenshots/add_portfolio.png" width="30%"> <img src="/screenshots/detail.png" width="30%">
