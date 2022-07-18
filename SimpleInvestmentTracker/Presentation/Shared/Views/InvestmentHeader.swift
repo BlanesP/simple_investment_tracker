@@ -37,7 +37,7 @@ struct InvestmentHeader: View {
             isPositive ? Image.arrowUp : Image.arrowDown
 
             Text(
-                gains.currencyFormatted() + " (\(yield.percentageFormatted())"
+                gains.currencyFormatted() + " (\(yield.percentageFormatted()))"
             )
                 .font(.title3)
                 .bold()
