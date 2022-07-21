@@ -6,7 +6,7 @@ As a big advocate of the "learn by doing" philosophy, I made this project to pra
 - **Core Data + Reactive layer**
 - **Unit Testing**
 - **MVVM + Clean Architecture**
-- *Pending: Publishing to the App Store*
+- **Publishing to the App Store** -> [Check it here!](https://apps.apple.com/app/simple-investment-tracker/id1635153223)
 
 ---
 <img src="/screenshots/home.png" width="30%"> <img src="/screenshots/add_portfolio.png" width="30%"> <img src="/screenshots/detail.png" width="30%">
