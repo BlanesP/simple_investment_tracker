@@ -93,12 +93,12 @@ extension PortfolioDetailView {
 
             CustomTextfield(
                 placeholder: .value,
-                text: $value,
-                keyboardType: .decimalPad,
-                onEditingEnd: { [weak viewModel] in
-                    viewModel?.input(.valueChanged(to: value))
-                }
+                text: $value
             )
+            .onEditingEnd { [weak viewModel] in
+                viewModel?.input(.valueChanged(to: value))
+            }
+            .styled(keyboardType: .decimalPad)
             .focused($isInputActive)
 
             HStack {
@@ -169,14 +169,14 @@ private struct AddContributionView: View {
 
                 CustomTextfield(
                     placeholder: .amount,
-                    text: $amount,
-                    keyboardType: .decimalPad,
-                    onEditingEnd: {
-                        amount = amount.currencyFormatted()
-                    }
+                    text: $amount
                 )
-                    .padding(.top, .sizeLarge)
-                    .focused(isInputActive)
+                .onEditingEnd {
+                    amount = amount.currencyFormatted()
+                }
+                .styled(keyboardType: .decimalPad)
+                .padding(.top, .sizeLarge)
+                .focused(isInputActive)
 
                 DatePicker(.date, selection: $date, displayedComponents: .date)
                     .padding(.bottom, .sizeLargeExtra)

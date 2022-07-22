@@ -99,27 +99,28 @@ extension AddPortfolioView {
         VStack(spacing: .sizeLargeExtra) {
 
             CustomTextfield(placeholder: .name, text: $name)
+                .styled()
                 .focused($isInputActive)
 
             CustomTextfield(
                 placeholder: .value,
-                text: $value,
-                keyboardType: .decimalPad,
-                onEditingEnd: {
-                    value = value.currencyFormatted()
-                }
+                text: $value
             )
-                .focused($isInputActive)
+            .onEditingEnd {
+                value = value.currencyFormatted()
+            }
+            .styled(keyboardType: .decimalPad)
+            .focused($isInputActive)
 
             CustomTextfield(
                 placeholder: .contributed,
-                text: $contributed,
-                keyboardType: .decimalPad,
-                onEditingEnd: {
-                    contributed = contributed.currencyFormatted()
-                }
+                text: $contributed
             )
-                .focused($isInputActive)
+            .onEditingEnd {
+                contributed = contributed.currencyFormatted()
+            }
+            .styled(keyboardType: .decimalPad)
+            .focused($isInputActive)
 
             Spacer()
 
