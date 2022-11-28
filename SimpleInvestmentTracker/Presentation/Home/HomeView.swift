@@ -59,7 +59,7 @@ extension HomeView {
             )
 
             investmentsList
-                .background(Color.white)
+                .background(Color.secondaryColor)
                 .cornerRadius(20, corners: [.topLeft, .topRight])
                 .edgesIgnoringSafeArea(.bottom)
         }

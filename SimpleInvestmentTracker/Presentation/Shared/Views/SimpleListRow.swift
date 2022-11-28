@@ -37,7 +37,7 @@ struct SimpleListRow: View {
             }
         }
         .padding(.sizeMedium)
-        .background(Color.white)
+        .background(Color.secondaryColor)
         .cornerRadius(.sizeNormal)
         .shadow(color: .shadowColor, radius: .sizeSmall)
     }

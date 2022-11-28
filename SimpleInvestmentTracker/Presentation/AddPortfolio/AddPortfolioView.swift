@@ -50,7 +50,7 @@ struct AddPortfolioView: View {
                 .padding([.horizontal, .bottom], .sizeLarge)
 
             contentView
-                .background(Color.white)
+                .background(Color.secondaryColor)
                 .cornerRadius(.cornerSize, corners: [.topLeft, .topRight])
                 .edgesIgnoringSafeArea(.bottom)
         }
@@ -142,14 +142,14 @@ extension AddPortfolioView {
                     RoundedRectangle(
                         cornerSize: CGSize(width: .sizeLargeExtra, height: .sizeLargeExtra)
                     )
-                        .foregroundColor(.secondaryColor)
+                        .foregroundColor(.accentColor)
                 )
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, .superLargePadding)
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [.white, .lightGray]),
+                gradient: Gradient(colors: [.secondaryColor, .lightGray]),
                 startPoint: .top,
                 endPoint: .bottom
             )

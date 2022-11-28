@@ -47,7 +47,7 @@ struct PortfolioDetailView: View {
             )
 
             contentView
-                .background(Color.white)
+                .background(Color.secondaryColor)
                 .cornerRadius(.cornerSize, corners: [.topLeft, .topRight])
                 .edgesIgnoringSafeArea(.bottom)
         }
@@ -199,13 +199,13 @@ private struct AddContributionView: View {
                                     width: .sizeLargeExtra, height: .sizeLargeExtra
                                 )
                             )
-                                .foregroundColor(.secondaryColor)
+                                .foregroundColor(.accentColor)
                         )
                 }
             }
             .padding([.horizontal, .top], .sizeLarge)
             .padding(.bottom, .sizeLargeExtra)
-            .background(Color.white)
+            .background(Color.secondaryColor)
             .cornerRadius(.cornerSize, corners: [.topLeft, .topRight])
         }
         .edgesIgnoringSafeArea(.all)
