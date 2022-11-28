@@ -10,24 +10,16 @@ import SwiftUI
 struct CustomTextfield: View {
 
     let placeholder: LocalizedStringKey
-    let keyboardType: UIKeyboardType
-    let onCommit: () -> Void
-    let onEditingEnd: () -> Void
-
     @Binding var text: String
+
+    @State private var onEditingEnd: SimplePerform?
 
     init(
         placeholder: LocalizedStringKey,
-        text: Binding<String>,
-        keyboardType: UIKeyboardType = .default,
-        onCommit: @escaping () -> Void = {},
-        onEditingEnd: @escaping () -> Void = {}
+        text: Binding<String>
     ) {
         self.placeholder = placeholder
         self._text = text
-        self.keyboardType = keyboardType
-        self.onCommit = onCommit
-        self.onEditingEnd = onEditingEnd
     }
 
     var body: some View {
@@ -35,16 +27,29 @@ struct CustomTextfield: View {
             placeholder,
             text: $text,
             onEditingChanged: { editing in
-                if !editing { onEditingEnd() }
-            },
-            onCommit: onCommit
+                if !editing { onEditingEnd?() }
+            }
         )
-        .keyboardType(keyboardType)
-        .padding(.sizeNormal)
-        .background(
-            RoundedRectangle(cornerRadius: .sizeLarge)
-                .strokeBorder(Color.gray)
-        )
+    }
+}
+
+//MARK: - Builders
+
+extension CustomTextfield {
+    func onEditingEnd(_ perform: @escaping SimplePerform) -> Self {
+        var view = self
+        view._onEditingEnd = State(initialValue: perform)
+        return view
+    }
+
+    func styled(keyboardType: UIKeyboardType = .default) -> some View {
+        self
+            .keyboardType(keyboardType)
+            .padding(.sizeNormal)
+            .background(
+                RoundedRectangle(cornerRadius: .sizeLarge)
+                    .strokeBorder(Color.gray)
+            )
     }
 }
 
